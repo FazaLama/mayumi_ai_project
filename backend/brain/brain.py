@@ -15,6 +15,7 @@ from backend.reflection.reflection_engine import ReflectionEngine
 from backend.reasoning.reasoning_engine import ReasoningEngine
 from backend.planning.planning_engine import PlanningEngine
 from backend.profile.profile_question_engine import ProfileQuestionEngine
+from backend.profile.profile_extractor import ProfileExtractor
 from backend.summary.conversation_summarizer import ConversationSummarizer
 from backend.summary.summary_manager import SummaryManager
 from backend.conversation.conversation_style_engine import ConversationStyleEngine
@@ -27,6 +28,8 @@ class Brain:
         self.conversation = ConversationManager()
 
         self.extractor = MemoryExtractor()
+
+        self.profile_extractor = ProfileExtractor()
 
         self.memory = MemoryRetriever()
 
@@ -111,6 +114,8 @@ class Brain:
 
         self.extractor.process(user_message)
 
+        self.profile_extractor.process(user_message)
+
         # ==========================
         # PROFILE QUESTION
         # ==========================
@@ -127,7 +132,7 @@ class Brain:
 
             history = self.conversation.get_history()
 
-            if len(history) >= 20:
+            if len(history) >= self.conversation.max_history:
 
                 summary = self.summarizer.summarize(history)
 
@@ -220,11 +225,9 @@ class Brain:
             style=style
         )
 
-        self.conversation.add_assistant_message(response)
-
         history = self.conversation.get_history()
 
-        if len(history) >= 20:
+        if len(history) >= self.conversation.max_history:
 
             summary = self.summarizer.summarize(history)
 

@@ -4,6 +4,10 @@ class MemoryRanker:
         "user_identity": 0.30,
         "user_location": 0.20,
         "preference": 0.15,
+        "favorite_drink": 0.15,
+        "favorite_food": 0.15,
+        "favorite_game": 0.15,
+        "favorite_anime": 0.15,
         "fact": 0.10
     }
 

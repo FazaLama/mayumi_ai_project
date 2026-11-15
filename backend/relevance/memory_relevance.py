@@ -50,6 +50,14 @@ class MemoryRelevance:
 
             "preference": 90,
 
+            "favorite_drink": 90,
+
+            "favorite_food": 90,
+
+            "favorite_game": 90,
+
+            "favorite_anime": 90,
+
             "user_location": 80,
 
             "job": 70,
